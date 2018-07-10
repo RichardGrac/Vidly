@@ -1,0 +1,36 @@
+﻿@model Vidly.Models.CustomerFormView
+
+@{
+    ViewBag.Title = "CustomerFormView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    var type = Model.Customer == null ? "New" : "Editing";
+} 
+    
+<h2>@type Customer</h2>
+
+@using (Html.BeginForm("Save", "Customers"))
+{
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.Name):
+        @Html.TextBoxFor(c => c.Customer.Name, new { @class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.DateOfBirth):
+        @Html.TextBoxFor(c => c.Customer.DateOfBirth, "{0:dd MMM yyyy}", new { @class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.MembershipTypeId):
+        @Html.DropDownListFor(c => c.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(c => c.Customer.IsSubscribedToNewsletter) Subscribed to Newsletter?
+        </label>
+    </div>
+    @Html.HiddenFor(c => c.Customer.Id);
+    <button type="submit" class="btn btn-primary">Save</button>
+}

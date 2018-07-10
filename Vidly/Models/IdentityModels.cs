@@ -20,8 +20,10 @@ namespace Vidly.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Customer> Customers { get; set; }  // For Customers DB
-        public DbSet<Movie> Movies { get; set; }        // For Movies DB
+        /* These DbSets permit to Use an instance (_context) to Use Data from DB */
+        public DbSet<Customer> Customers { get; set; } // For Customers
+        public DbSet<Movie> Movies { get; set; } // For Movies
+        public DbSet<MembershipType> MembershipTypes { get; set; }
 
 
         public ApplicationDbContext()
