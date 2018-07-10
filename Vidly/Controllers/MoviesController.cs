@@ -1,26 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;   // Para la carga 'Eager' de MembershipType
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
-using Vidly.Views.ViewModels;
-using String = System.String;
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        List<Movie> movies = new List<Movie>
-        {
-            new Movie() {Id = 1, Name = "Batman Begins"},
-            new Movie() {Id = 2, Name = "Batman The Dark Knight"},
-            new Movie() {Id = 3, Name = "Batman The Dark Knight Rises"}
-        };
+        private List<Movie> movies = new List<Movie>();
+        private ApplicationDbContext _context;
 
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
+        // localhost:5000/Movies
         public ActionResult Index()
         {
+            getMovies();
             return View(movies);
+        }
+        
+        /* Gets available Movies from the DB */
+        private void getMovies()
+        {
+            this.movies = _context.Movies.Include(m => m.Genre).ToList();
+        }
+
+
+        /* Gets a Movie Details */
+        public ActionResult Details(int id)
+        {
+            var movieSearched = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
+            if (movieSearched == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(movieSearched);
         }
 
 

@@ -243,9 +243,18 @@
     <Compile Include="Migrations\201807090258103_DateOfBirthCanBeNullableCustomer.Designer.cs">
       <DependentUpon>201807090258103_DateOfBirthCanBeNullableCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807091140081_MovieModelChanged.cs" />
+    <Compile Include="Migrations\201807091140081_MovieModelChanged.Designer.cs">
+      <DependentUpon>201807091140081_MovieModelChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807100051245_MoviesDataAdded.cs" />
+    <Compile Include="Migrations\201807100051245_MoviesDataAdded.Designer.cs">
+      <DependentUpon>201807100051245_MoviesDataAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -318,6 +327,7 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -360,6 +370,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807090258103_DateOfBirthCanBeNullableCustomer.resx">
       <DependentUpon>201807090258103_DateOfBirthCanBeNullableCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807091140081_MovieModelChanged.resx">
+      <DependentUpon>201807091140081_MovieModelChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807100051245_MoviesDataAdded.resx">
+      <DependentUpon>201807100051245_MoviesDataAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

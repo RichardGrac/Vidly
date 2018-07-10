@@ -23,6 +23,9 @@ else
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th class="text-center">
+                Genre
+            </th>
+            <th class="text-center">
                 Options
             </th>
         </tr>
@@ -32,6 +35,9 @@ else
             <tr class="text-center">
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @item.Genre.Name
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new {id = item.Id}) -
