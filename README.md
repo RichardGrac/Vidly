@@ -1,2 +1,2 @@
-# Vidly
-Movies retail project
+# Vidly Project
+Descripción: Movies retail project. Customers and Movies CRUD with .NET Framework.
