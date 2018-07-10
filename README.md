@@ -1,0 +1,2 @@
+# Vidly
+Movies retail project
