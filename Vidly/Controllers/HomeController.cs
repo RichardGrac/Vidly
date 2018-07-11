@@ -10,7 +10,7 @@ namespace Vidly.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Customers");
         }
 
         public ActionResult About()

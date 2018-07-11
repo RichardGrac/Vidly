@@ -8,7 +8,7 @@
 <h2>Movies We have</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Add", "Movies", null, new { @class = "btn btn-primary" })
 </p>
 
 @if (Model.Count() == 0)
@@ -41,8 +41,8 @@ else
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new {id = item.Id}) -
-                    @Html.ActionLink("Details", "Details", new {id = item.Id}) -
-                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                    @Html.ActionLink("Details", "Details", new {id = item.Id})
+                    @*@Html.ActionLink("Delete", "Delete", new {id = item.Id})*@
                 </td>
             </tr>
         }

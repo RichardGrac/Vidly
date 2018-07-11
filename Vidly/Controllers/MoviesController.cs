@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
+using Vidly.Models.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -49,64 +50,53 @@ namespace Vidly.Controllers
             return View(movieSearched);
         }
 
+        /* Method that returns the View with a Model for a New Movie Register */
+        public ActionResult Add()
+        {
+            var genres = _context.Genres.ToList();
+            var newMovie = new MovieFormView
+            {
+                Genres = genres
+            };
+            return View("MovieFormView", newMovie);
+        }
 
-        // GET: Movies/Random
-        //public ActionResult Random()
-        //{
-        //    var movie = new Movie() {Name = "Shrek"};
-        //    return View(movie); // Returna la vista movie
-        //return new ViewResult();
-        //return Content("Hello World!"); // Texto plano
-        //return new EmptyResult(); // Página en blanco
-        // Redirección a 'Método/Controlador/Argumentos'
-        //return RedirectToAction("Index", "Home", new {page = 1, sortBy = "name"});
-        //}
+        /* Method to Save a Movie (A New or any already created) */
+        [HttpPost]
+        public ActionResult Save(Movie Movie)
+        {
+            if (Movie.Id == 0)
+            {
+                Movie.DateAdded = DateTime.Now;
+                _context.Movies.Add(Movie);
+            }
+            else
+            {
+                var movieInDb = _context.Movies.Single(m => m.Id == Movie.Id);
+                movieInDb.Name = Movie.Name;
+                movieInDb.ReleaseDate = Movie.ReleaseDate;
+                movieInDb.GenreId = Movie.GenreId;
+                movieInDb.NumberInStock = Movie.NumberInStock;
+            }
 
-        //public ActionResult Random()
-        //{
-        //    var movie = new Movie() { Name = "Batman Begins" };
-        //    var customers = new List<Customer>
-        //    {
-        //        new Customer { Name = "Customer 1"},
-        //        new Customer { Name = "Customer 2"}
-        //    };
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
+        }
 
-        //    var viewModel = new RandomMovieViewModel
-        //    {
-        //        Movie = movie,
-        //        Customers = customers
-        //    };
-        //    return View(viewModel);
-        //}
+        /* Method to Edit a Movie */
+        public ActionResult Edit(int id)
+        {
+            var searchedMovie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
+            if (searchedMovie == null)
+                return HttpNotFound();
 
-        //// localhost:65118/Movies/Edit?id=10
-        //// localhost:65118/Movies/Edit/10
-        //public ActionResult Edit(int id)
-        //{
-        //    return Content("id = " + id);
-        //}
+            var movieToEdit = new MovieFormView
+            {
+                Movie = searchedMovie,
+                Genres = _context.Genres.ToList()
+            };
 
-        //public ActionResult Index(int? pageIndex, string sortBy)
-        //{
-        //    if (!pageIndex.HasValue)
-        //    {
-        //        pageIndex = 1;
-        //    }
-
-        //    if (String.IsNullOrWhiteSpace(sortBy))
-        //    {
-        //        sortBy = "Name";
-        //    }
-
-        //    return Content(String.Format("pageIndex = {0} \n sortBy = {1}", pageIndex, sortBy));
-        //}
-
-        //[Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")]
-        //public ActionResult ByReleaseDate(int year, int month)
-        //{
-
-        //    return Content(year + "/" + month);
-        //}
-
+            return View("MovieFormView", movieToEdit);
+        }
     }
 }
