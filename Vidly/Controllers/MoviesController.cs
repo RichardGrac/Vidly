@@ -56,6 +56,7 @@ namespace Vidly.Controllers
             var genres = _context.Genres.ToList();
             var newMovie = new MovieFormView
             {
+                Movie = new Movie(),
                 Genres = genres
             };
             return View("MovieFormView", newMovie);
@@ -63,6 +64,7 @@ namespace Vidly.Controllers
 
         /* Method to Save a Movie (A New or any already created) */
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie Movie)
         {
             if (Movie.Id == 0)

@@ -11,16 +11,18 @@ namespace Vidly.Models
         [Required]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Complete this field")]
         public string Name { get; set; }
 
         public Genre Genre { get; set; }
         
         [Display(Name = "Genre")]
-        [Required]
+        [Required(ErrorMessage = "Select a Movie Genre")]
         public byte GenreId { get; set; }
 
         [Display(Name = "Release Date")]
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        [Required(ErrorMessage = "Introduce the Release Date of the Movie")]
         public DateTime ReleaseDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy hh:mm:ss tt}")]
@@ -28,6 +30,7 @@ namespace Vidly.Models
 
         [Display(Name = "Stock")]
         [Range(0, 20)]
+        [Required(ErrorMessage = "Stock must be 0-20")]
         public int NumberInStock { get; set; }
     }
 }

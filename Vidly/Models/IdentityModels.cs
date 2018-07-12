@@ -30,6 +30,10 @@ namespace Vidly.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            /* Added when "The model backing the 'ApplicationDbContext'
+             context has changed since the database was created" popped up
+             */
+            Database.SetInitializer<ApplicationDbContext>(null);
         }
 
         public static ApplicationDbContext Create()
