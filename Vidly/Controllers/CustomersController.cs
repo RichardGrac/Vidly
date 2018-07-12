@@ -56,6 +56,7 @@ namespace Vidly.Controllers
             var membershipTypes = _context.MembershipTypes.ToList();
             var newCustomer = new CustomerFormView
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
             return View("CustomerForm", newCustomer);
@@ -63,8 +64,21 @@ namespace Vidly.Controllers
 
         /* To save the Customer into the DB */
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
+            // Validation of Inputs
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormView
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+
+                return View("CustomerForm", viewModel);
+            }
+
             if (customer.Id == 0)
             {
                 // It's a new Customer
