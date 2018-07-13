@@ -18,8 +18,11 @@ namespace Vidly.App_Start
     {
         public MappingProfile()
         {
+            // When Using PUT, the 'id' should never changed. So, We ignore it
             CreateMap<Customer, CustomerDTO>();
-            CreateMap<CustomerDTO, Customer>();
+            CreateMap<CustomerDTO, Customer>().ForMember(c => c.Id, opt => opt.Ignore()); ;
+            CreateMap<Movie, MovieDTO>();
+            CreateMap<MovieDTO, Movie>().ForMember(m => m.Id, opt => opt.Ignore());
         }
     }
 }

@@ -100,5 +100,17 @@ namespace Vidly.Controllers
 
             return View("MovieFormView", movieToEdit);
         }
+
+        /* Method to Delete a Movie */
+        public ActionResult Delete(int id)
+        {
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+            if (movie == null)
+                return HttpNotFound();
+
+            _context.Movies.Remove(movie);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
+        }
     }
 }

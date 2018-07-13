@@ -67,6 +67,7 @@ namespace Vidly.Controllers.API
             /* We've to put the Id manually because it will not come
              from the CustomerDTO */
             customerDto.Id = id;
+            /* We've to map in order to make cInDb equals cDto */
             Mapper.Map<CustomerDTO, Customer>(customerDto, customerInDb);
 
             _context.SaveChanges();
