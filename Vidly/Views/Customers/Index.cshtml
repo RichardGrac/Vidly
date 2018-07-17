@@ -48,8 +48,10 @@ else
                 <td>
                     @Html.ActionLink("Edit", "Edit", new {id = item.Id}) -
                     @Html.ActionLink("Details", "Details", new {id = item.Id}) -
-                    @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-                    <button data-customer-id="@item.Id" class="btn-link js-delete">Delete</button>
+                    <button data-customer-id="@item.Id" class="js-delete"
+                            style="background: none; border: none; padding: 0;">
+                        <a>Delete</a>
+                    </button>
                 </td>
             </tr>
         }
@@ -59,9 +61,7 @@ else
 @section scripts
 {
     <script>
-        $(document).ready(function () {
-            $('#customers').DataTable();
-
+        $(document).ready(function (){
 
             $("#customers").on("click", ".js-delete", function() {
                     var button = $(this);

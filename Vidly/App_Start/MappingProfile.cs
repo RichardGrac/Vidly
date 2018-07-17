@@ -21,6 +21,9 @@ namespace Vidly.App_Start
             // When Using PUT, the 'id' should never changed. So, We ignore it
             CreateMap<Customer, CustomerDTO>();
             CreateMap<CustomerDTO, Customer>().ForMember(c => c.Id, opt => opt.Ignore()); ;
+
+            CreateMap<MembershipType, MembershipTypeDTO>();
+
             CreateMap<Movie, MovieDTO>();
             CreateMap<MovieDTO, Movie>().ForMember(m => m.Id, opt => opt.Ignore());
         }
