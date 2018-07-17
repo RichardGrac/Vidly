@@ -27,8 +27,8 @@ namespace Vidly.Controllers
         // GET: localhost:5000/Customers
         public ActionResult Index()
         {
-            getCustomers();
-            return View(this.customers);
+            //getCustomers();
+            return View();
         }
 
         /* Returns the list of Customers from DB */
@@ -41,13 +41,7 @@ namespace Vidly.Controllers
         // GET: localhost:5000/Customers/{id}
         public ActionResult Details(int id)
         {
-            //var customer = customers.Find(x => x.Id == id);
-            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customer);
+            return View(id);
         }
 
         /* It returns a View with a new Customer Form */

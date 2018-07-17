@@ -11,58 +11,69 @@
     @Html.ActionLink("Create New", "Add", "Customers", null, new {@class = "btn btn-primary"})
 </p>
 
-@if (Model.Count() == 0)
-{
-    <p class="lead text-center">We don't have any Customer registered temporaly.</p>
-}
-else
-{
-    <table id="customers" class="table table-striped table-bordered table-responsive">
-        <tr>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th class="text-center">
-                Membership Type
-            </th>
-            <th class="text-center">
-                Discount Rate
-            </th>
-            <th class="text-center">
-                Options
-            </th>
-        </tr>
+<p class="lead text-center" id="no-customers">
+    @* It will show up a message with no customers are registered. *@
+</p>
 
-        @foreach (var item in Model)
-        {
-            <tr class="text-center">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @item.MembershipType.Name
-                </td>
-                <td>
-                    @item.MembershipType.DiscountRate %
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {id = item.Id}) -
-                    @Html.ActionLink("Details", "Details", new {id = item.Id}) -
-                    <button data-customer-id="@item.Id" class="js-delete"
-                            style="background: none; border: none; padding: 0;">
-                        <a>Delete</a>
-                    </button>
-                </td>
-            </tr>
-        }
-    </table>
-}
+<table id="customers" class="table table-striped table-bordered table-responsive">
+    <tr>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="text-center">
+            Membership Type
+        </th>
+        <th class="text-center">
+            Discount Rate
+        </th>
+        <th class="text-center">
+            Options
+        </th>
+    </tr>
+</table>
 
 @section scripts
 {
     <script>
-        $(document).ready(function (){
+        $(document).ready(function () {
 
+            // Getting customers
+            $.ajax({
+                url: "http://localhost:5000/api/customers",
+                method: "GET",
+                success: function (data) {
+                    console.log("Data received from /api/customers: ", data);
+                    // There are data to show up
+                    var employeeData = '';
+                    var index = 0;
+                    $.each(data, function (key, value) {
+                        employeeData += "<tr class='text-center'>";
+                        employeeData += '<td>' + value.name + '</td>';
+                        employeeData += '<td>' + value.membershipType.name + '</td>';
+                        employeeData += '<td>' + value.membershipType.discountRate + ' % </td>';
+                        employeeData += '<td>' +
+                            '<a href=\'Customers/Edit/' + value.id + '\'>Edit</a> - ' +
+                            '<a href=\'Customers/Details/' + value.id + '\'>Details</a> - ' +
+                            '<button data-customer-id=' + value.id + ' class=\"js-delete button-design\">' +
+                            '<a>Delete</a></button>' +
+                            '</td>';
+                        employeeData += '</tr>';
+                        index += 1;
+                    });
+
+                    if (index !== 0) {
+                        $('#customers').append(employeeData);
+                    } else {
+                        // There are no customers registered
+                        $('#no-customers')
+                        .append("We don't have any Customer registered temporaly.");
+                        $('#customers').remove();
+                    }
+                }
+
+            });
+
+            // Deleting a Customer
             $("#customers").on("click", ".js-delete", function() {
                     var button = $(this);
 
@@ -71,7 +82,7 @@ else
                             if (result) {
                                 // We get deleted the Row with the Customer info
                                 $.ajax({
-                                    url: "api/customers/" + $(button).attr("data-customer-id"),
+                                    url: "http://localhost:5000/api/customers/" + $(button).attr("data-customer-id"),
                                     method: "DELETE",
                                     success: function() {
                                         button.parents("tr").remove();
@@ -84,3 +95,9 @@ else
         });
     </script>
 }
+
+<style>
+    .button-design {
+        background: none; border: none; padding: 0;
+    }
+</style>

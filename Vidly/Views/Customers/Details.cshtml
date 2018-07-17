@@ -1,36 +1,67 @@
-﻿@model Vidly.Models.Customer
-
-@{
+﻿@{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details of @Model.Name</h2>
+<h2>Details of <span id="customer-name"></span></h2>
 
 <div>
     <h4>Customer</h4>
+    <input id="customer-id" type="hidden" name="customer-id" value="@Model" />
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Membership Type :
-        </dt>
-        <dd>
-            @Model.MembershipType.Name
-        </dd>
-        
-        
-        @if (Model.DateOfBirth != null)
-        {
-            <dt>
-                Date of Birth:
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DateOfBirth)
-            </dd>
-        }
+    <p class="lead text-center" id="no-customer">
+        @* It will show up when the Customer looked up doesn't exist. *@
+    </p>
+
+    <dl class="dl-horizontal" id="customer-info">
+        <dt>Name :</dt>
+        <dd id="name"></dd>
+
+        <dt>Date of Birth :</dt>
+        <dd id="dateOfBirth"></dd>
+
+        <dt>Membership Type :</dt>
+        <dd id="membershipType"></dd>
+
+        <dt>Discount Rate :</dt>
+        <dd id="discountRate"></dd>
+
+        <dt>Suscribed to Newsletter:</dt>
+        <dd id="subscribed"></dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+<p id="section">
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section scripts
+{
+    <script>
+        var customerId = $('#customer-id').val();
+        $.ajax({
+            url: "http://localhost:5000/api/customers/" + customerId,
+            method: "GET",
+            success: function(data) {
+                console.log('Data received: ', data);
+
+                $('#customer-name').append(data.name);
+
+                $('#name').append(data.name);
+                $('#dateOfBirth').append(data.dateOfBirth);
+                $('#membershipType').append(data.membershipType.name);
+                $('#discountRate').append(data.membershipType.discountRate + " %");
+                var yesNo = data.isSubscribedToNewsletter == false ? 'No' : 'Yes';
+                $('#subscribed').append(yesNo);
+
+                var editUser = ' | <a href=\"/Customers/Edit/' + data.id + '\">Edit this User</a> ';
+                $('#section').append(editUser);
+            },
+            error: function (error) {
+                console.log('Error getting customer. Code: ', error.status, ' - Message: ', error.statusText);
+                $('#customer-info').remove();
+                $('#no-customer').append("The Customer you are looking for doesn't exist.");
+            }
+        });
+    </script>
+}
