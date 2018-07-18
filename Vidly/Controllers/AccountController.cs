@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Vidly.Models;
@@ -155,6 +156,19 @@ namespace Vidly.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    /* 1° I create a common user (guest@Vidly.com - Super2017.)
+                       2° Then descomment the lines below and create a Admin User with it 
+                          uncommented (admin@Vidly.com - Super2017.)
+                       3° Comment the code below again
+                     */
+
+                    // <Temporary_code>
+                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    //await roleManager.CreateAsync(new IdentityRole("CanManageMoviesRole"));
+                    //await UserManager.AddToRoleAsync(user.Id, "CanManageMoviesRole");
+                    // </Temporary_code>
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

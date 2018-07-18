@@ -280,6 +280,10 @@
     <Compile Include="Migrations\201807100051245_MoviesDataAdded.Designer.cs">
       <DependentUpon>201807100051245_MoviesDataAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807180255348_SeedUserRoles.cs" />
+    <Compile Include="Migrations\201807180255348_SeedUserRoles.Designer.cs">
+      <DependentUpon>201807180255348_SeedUserRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -650,6 +654,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807100051245_MoviesDataAdded.resx">
       <DependentUpon>201807100051245_MoviesDataAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180255348_SeedUserRoles.resx">
+      <DependentUpon>201807180255348_SeedUserRoles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
