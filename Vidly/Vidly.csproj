@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44324</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -283,6 +283,10 @@
     <Compile Include="Migrations\201807180255348_SeedUserRoles.cs" />
     <Compile Include="Migrations\201807180255348_SeedUserRoles.Designer.cs">
       <DependentUpon>201807180255348_SeedUserRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807181416189_AddDrivingLicenceToApplicationUser.cs" />
+    <Compile Include="Migrations\201807181416189_AddDrivingLicenceToApplicationUser.Designer.cs">
+      <DependentUpon>201807181416189_AddDrivingLicenceToApplicationUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -659,6 +663,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807180255348_SeedUserRoles.resx">
       <DependentUpon>201807180255348_SeedUserRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807181416189_AddDrivingLicenceToApplicationUser.resx">
+      <DependentUpon>201807181416189_AddDrivingLicenceToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
