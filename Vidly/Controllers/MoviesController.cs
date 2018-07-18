@@ -28,7 +28,10 @@ namespace Vidly.Controllers
         public ActionResult Index()
         {
             getMovies();
-            return View(movies);
+            if (User.IsInRole(RoleName.CanManageMoviesRole))
+                return View("List", movies);
+
+            return View("ReadOnlyList", movies);
         }
         
         /* Gets available Movies from the DB */
@@ -51,6 +54,7 @@ namespace Vidly.Controllers
         }
 
         /* Method that returns the View with a Model for a New Movie Register */
+        [Authorize(Roles = RoleName.CanManageMoviesRole)]
         public ActionResult Add()
         {
             var genres = _context.Genres.ToList();
@@ -65,6 +69,7 @@ namespace Vidly.Controllers
         /* Method to Save a Movie (A New or any already created) */
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageMoviesRole)]
         public ActionResult Save(Movie Movie)
         {
             if (Movie.Id == 0)
@@ -86,6 +91,7 @@ namespace Vidly.Controllers
         }
 
         /* Method to Edit a Movie */
+        [Authorize(Roles = RoleName.CanManageMoviesRole)]
         public ActionResult Edit(int id)
         {
             var searchedMovie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
@@ -102,6 +108,7 @@ namespace Vidly.Controllers
         }
 
         /* Method to Delete a Movie */
+        [Authorize(Roles = RoleName.CanManageMoviesRole)]
         public ActionResult Delete(int id)
         {
             var movie = _context.Movies.SingleOrDefault(m => m.Id == id);

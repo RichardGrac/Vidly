@@ -41,7 +41,7 @@ else
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new {id = item.Id}) -
-                    @Html.ActionLink("Details", "Details", new {id = item.Id})
+                    @Html.ActionLink("Details", "Details", new {id = item.Id}) -
                     @Html.ActionLink("Delete", "Delete", new {id = item.Id})
                 </td>
             </tr>
@@ -49,3 +49,5 @@ else
 
     </table>
 }
+<hr/>
+<h5>This Movies Pages are showed from MVC Normal Request of Data, not from APIs</h5>

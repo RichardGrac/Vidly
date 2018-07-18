@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Vidly.Models.Movie>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies We have</h2>
+
+@if (Model.Count() == 0)
+{
+    <p class="lead text-center">We don't have any Movie registered temporaly.</p>
+}
+else
+{
+    <table class="table table-striped table-bordered table-responsive">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th class="text-center">
+                Genre
+            </th>
+            <th class="text-center">
+                Options
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @item.Genre.Name
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new {id = item.Id})
+                </td>
+            </tr>
+        }
+
+    </table>
+}
