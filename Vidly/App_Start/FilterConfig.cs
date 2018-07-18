@@ -8,9 +8,12 @@ namespace Vidly
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            /* Restrictive permission to All Anonymous Users */
+            /* Restrictive permission to All Anonymous Users
+               Home page is allowed to All Users /controllers/Home
+             */
             filters.Add(new AuthorizeAttribute());
-            /* Home page is allowed to All Users /controllers/Home */
+            /* Deny 'HTTP' Request (Only 'HTTPS') */
+            filters.Add(new RequireHttpsAttribute());
         }
     }
 }
