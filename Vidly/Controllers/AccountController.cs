@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Vidly.Models;
+using Vidly.Models.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -156,15 +157,18 @@ namespace Vidly.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    DrivingLicense = model.DrivingLicense
+                    DrivingLicense = model.DrivingLicense,
+                    Phone = model.Phone
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    /* 1° I create a common user (guest@Vidly.com - Super2017.)
+                    /* ----------------------- CREATE USER ROLES -----------------------
+                       1° I create a common user (guest@Vidly.com - Super2017.)
                        2° Then descomment the lines below and create a Admin User with it 
                           uncommented (admin@Vidly.com - Super2017.)
                        3° Comment the code below again
+                       -----------------------------------------------------------------
                      */
 
                     // <Temporary_code>
@@ -390,7 +394,8 @@ namespace Vidly.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    DrivingLicense = model.DrivingLicense
+                    DrivingLicense = model.DrivingLicense,
+                    Phone = model.Phone
                 };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)

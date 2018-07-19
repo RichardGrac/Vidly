@@ -42,7 +42,7 @@
 
             // Getting customers
             $.ajax({
-                url: "http://localhost:5000/api/customers",
+                url: "https://localhost:44324/api/customers",
                 method: "GET",
                 success: function (data) {
                     console.log("Data received from /api/customers: ", data);
@@ -85,7 +85,7 @@
                             if (result) {
                                 // We get deleted the Row with the Customer info
                                 $.ajax({
-                                    url: "http://localhost:5000/api/customers/" + $(button).attr("data-customer-id"),
+                                    url: "https://localhost:44324/api/customers/" + $(button).attr("data-customer-id"),
                                     method: "DELETE",
                                     success: function() {
                                         button.parents("tr").remove();

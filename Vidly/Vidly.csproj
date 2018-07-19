@@ -292,8 +292,13 @@
     <Compile Include="Migrations\201807181416189_AddDrivingLicenceToApplicationUser.Designer.cs">
       <DependentUpon>201807181416189_AddDrivingLicenceToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807190119418_PhoneAddedToRegisterForm.cs" />
+    <Compile Include="Migrations\201807190119418_PhoneAddedToRegisterForm.Designer.cs">
+      <DependentUpon>201807190119418_PhoneAddedToRegisterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -302,8 +307,10 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\Validations\Min18YearsIfAMember.cs" />
+    <Compile Include="Models\ViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\ViewModels\CustomerFormView.cs" />
     <Compile Include="Models\ViewModels\MovieFormView.cs" />
+    <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Models\ViewModels\RandomMovieViewModel.cs" />
@@ -670,6 +677,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807181416189_AddDrivingLicenceToApplicationUser.resx">
       <DependentUpon>201807181416189_AddDrivingLicenceToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807190119418_PhoneAddedToRegisterForm.resx">
+      <DependentUpon>201807190119418_PhoneAddedToRegisterForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
