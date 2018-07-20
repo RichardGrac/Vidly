@@ -16,12 +16,27 @@ namespace Vidly.Controllers.API
         [HttpPost]
         public IHttpActionResult CreateRental(RentalDTO rentalDto)
         {
-            var customer = db.Customers.Single(c => c.Id == rentalDto.CustomerId);
-            // SELECT * FROM Movies WHERE Id IN (1,2,3):
-            var movies = db.Movies.Where(m => rentalDto.MovieIds.Contains(m.Id));
+            var customer = db.Customers.SingleOrDefault
+                (c => c.Id == rentalDto.CustomerId);
 
+            if (customer == null)
+                return BadRequest("CustomerId is not valid");
+
+            if(rentalDto.MovieIds.Count == 0)
+                return BadRequest("No MoviesIds have been given.");
+
+            // SELECT * FROM Movies WHERE Id IN (1,2,3):
+            var movies = db.Movies.Where
+                (m => rentalDto.MovieIds.Contains(m.Id)).ToList();
+
+            if (movies.Count != rentalDto.MovieIds.Count)
+                return BadRequest("One or more MovieIds are invalid.");
+            
             foreach (var movie in movies)
             {
+                if (movie.NumberAvailable == 0)
+                    return BadRequest("'" + movie.Name + "' is not Available");
+                movie.NumberAvailable--;
                 var rental = new Rental
                 {
                     Customer = customer,

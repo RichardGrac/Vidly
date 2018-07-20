@@ -232,6 +232,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\RentalsController.cs" />
     <Compile Include="DTOS\CustomerDTO.cs" />
     <Compile Include="DTOS\MembershipTypeDTO.cs" />
     <Compile Include="DTOS\MovieDTO.cs" />
@@ -299,6 +300,15 @@
     <Compile Include="Migrations\201807190119418_PhoneAddedToRegisterForm.Designer.cs">
       <DependentUpon>201807190119418_PhoneAddedToRegisterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807201324219_RentalModelAdded.cs" />
+    <Compile Include="Migrations\201807201324219_RentalModelAdded.Designer.cs">
+      <DependentUpon>201807201324219_RentalModelAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807201331514_AddNumberAvailableToMovie.cs" />
+    <Compile Include="Migrations\201807201331514_AddNumberAvailableToMovie.Designer.cs">
+      <DependentUpon>201807201331514_AddNumberAvailableToMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -478,12 +488,15 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -581,6 +594,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -624,6 +641,7 @@
     <Content Include="Views\Customers\CustomerForm.cshtml" />
     <Content Include="Views\Movies\MovieFormView.cshtml" />
     <Content Include="Views\Movies\ReadOnlyList.cshtml" />
+    <Content Include="Views\Rentals\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -683,6 +701,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807190119418_PhoneAddedToRegisterForm.resx">
       <DependentUpon>201807190119418_PhoneAddedToRegisterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807201324219_RentalModelAdded.resx">
+      <DependentUpon>201807201324219_RentalModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807201331514_AddNumberAvailableToMovie.resx">
+      <DependentUpon>201807201331514_AddNumberAvailableToMovie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

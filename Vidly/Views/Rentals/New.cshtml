@@ -1,0 +1,76 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "New Rental Form";
+}
+
+<h2>New Rental Form</h2>
+
+<form>
+    <div class="form-group">
+        <label>Customer</label>
+        <div class="tt-container">
+            <input id="customer" name="customer" type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Movie</label>
+        <div class="tt-container">
+            <input id="movie" name="customer" type="text" value="" class="form-control" />
+        </div>
+    </div>
+    
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            /**
+             * Typeahead for customer field
+             */
+
+            var customers = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/customers?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+ 
+            $('#customer').typeahead({
+                highlight: true,
+                minLength: 2
+            }, {
+                name: 'customers',
+                display: 'name',
+                source: customers
+            });
+
+            /**
+             * Typeahead for movie field
+             */
+
+            var movies = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/movies?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#movie').typeahead({
+                highlight: true,
+                minLength: 2
+            }, {
+                name: 'movies',
+                display: 'name',
+                source: movies
+            });
+        });
+    </script>
+}
