@@ -31,5 +31,7 @@ namespace Vidly.DTOS
         [Range(0, 20)]
         [Required(ErrorMessage = "Stock must be 0-20")]
         public int NumberInStock { get; set; }
+
+        public int NumberAvailable { get; set; }
     }
 }

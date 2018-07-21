@@ -3,30 +3,44 @@
 @{
     ViewBag.Title = "New Rental Form";
 }
+<style type="text/css">.tt-container { position: relative; }</style>
 
 <h2>New Rental Form</h2>
 
-<form>
+<form id="newRental">
     <div class="form-group">
         <label>Customer</label>
         <div class="tt-container">
-            <input id="customer" name="customer" type="text" value="" class="form-control" />
+            <input id="customer" data-rule-validCustomer="true" required name="customer" type="text" value="" class="form-control" />
         </div>
     </div>
 
     <div class="form-group">
         <label>Movie</label>
         <div class="tt-container">
-            <input id="movie" name="customer" type="text" value="" class="form-control" />
+            <input id="movie" data-rule-validOrder="true" name="movie" type="text" value="" class="form-control" />
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <ul id="movies" class="list-group"></ul>
         </div>
     </div>
     
     <button class="btn btn-primary">Submit</button>
 </form>
 
-@section scripts {
+@section scripts 
+{
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
+
+            var viewModel = {
+                customerId: 0,
+                movieIds: []
+            };
 
             /**
              * Typeahead for customer field
@@ -48,6 +62,8 @@
                 name: 'customers',
                 display: 'name',
                 source: customers
+            }).on("typeahead:select", function(e, customer) {
+                 viewModel.customerId = customer.id;
             });
 
             /**
@@ -70,6 +86,54 @@
                 name: 'movies',
                 display: 'name',
                 source: movies
+            }).on('typeahead:select', function (e, movie) {
+                // "e" means the event occurred
+                // movies the model selected
+                $("#movies").append("<li class=\"list-group-item\">" + movie.name + "</li>");
+                $("#movie").typeahead("val", ""); // We clean the input
+
+                viewModel.movieIds.push(movie.id);
+            });
+
+            // Let's check if at least there is one movie in the Rental Order
+            $.validator.addMethod("validOrder",
+                function () {
+                    return viewModel.movieIds.length > 0;
+                }, "Please, select at least one movie");
+
+            // Let's check if the Customer was really choosen by the Predictive List
+            $.validator.addMethod("validCustomer",
+                function() {
+                    return viewModel.customerId && viewModel.customerId !== 0;
+                }, "Please, select a valid customer");
+
+
+
+            $("#newRental").validate({
+                // If Front validation is not correct, it'll show the error
+                // in Red color due to query class 'error' that adds to the
+                // input, in 'Site.css' I marked that color in Red.
+                submitHandler: function() {
+                $.ajax({
+                        url: "/api/rentals",
+                        method: "post",
+                        data: viewModel
+                    })
+                    .done(function (message) {
+                        toastr.success("Rental(s) created successfully");
+                        $("#customer").typeahead("val", "");
+                        $("#movie").typeahead("val", "");
+                        $("#movies").empty();
+
+                        viewModel = { movieIds: [] };
+
+                        validator.resetForm();
+                    })
+                    .fail(function (error) {
+                        toastr.error("An error ocurred while creating a new Rental");
+                    });
+                    return false;
+                }
             });
         });
     </script>

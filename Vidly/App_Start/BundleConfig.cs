@@ -11,7 +11,8 @@ namespace Vidly
             // Next bundle was changed, from 'jquery' to 'lib'
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/typeahead.bundle.js"
+                        "~/Scripts/typeahead.bundle.js",
+                        "~/Scripts/toastr.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -31,6 +32,7 @@ namespace Vidly
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-cerulean.css",
                       "~/Content/Typeahead.css",
+                      "~/Content/toastr.css",
                       "~/Content/site.css"));
         }
     }
